@@ -2,19 +2,27 @@ import React, { useState } from 'react';
 import InputBox from '../Components/InputBox';
 import ButtonBox from '../Components/ButtonBox';
 import { Box, Typography, Paper } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Form: React.FC = () => {
   const [Name, setName] = useState("");
   const [Phone, setPhone] = useState("");
   const [Email, setEmail] = useState("");
-  console.log(Name, Phone, Email);
+  const navigate = useNavigate();
 
-  const handlesubmit = () => {
-    if (!Name || !Phone || !Email) {
-      alert("Please fill all fields");
-      return;
+  const handlesubmit =  () => {
+    try {
+      if (!Name || !Phone || !Email) {
+        alert("Please fill all fields");
+        return;
+      }
+    } catch (error) {
+        console.error("Error saving user details", error);
+        return;
     }
-    console.log("Form submitted:", { Name, Phone, Email });
+
+      localStorage.setItem("UserDetails",JSON.stringify({Name, Phone, Email}));
+      navigate('/Details');
   };
 
   return (
