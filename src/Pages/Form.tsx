@@ -1,8 +1,8 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import InputBox from '../Components/InputBox';
 import ButtonBox from '../Components/ButtonBox';
 import { Box, Typography, Paper } from '@mui/material';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const Form: React.FC = () => {

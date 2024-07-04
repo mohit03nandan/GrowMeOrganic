@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Box } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import {fetchPosts} from "../api/api";
@@ -40,7 +39,6 @@ const GridPage: React.FC = () => {
             <DataGrid
                 rows={data}
                 columns={columns}
-                pageSize={5}
             />
         </Box>
         </div>

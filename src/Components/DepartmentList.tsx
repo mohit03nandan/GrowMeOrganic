@@ -3,13 +3,23 @@ import { Box, Checkbox, FormControlLabel, List, ListItem, ListItemText } from '@
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-const DepartmentList = ({ departmentData }) => {
-  const [checked, setChecked] = useState({});
+
+interface Department {
+  department: string;
+  sub_departments: string[];
+}
 
 
-  const handleDeptChange = (department) => {
+interface DepartmentListProps {
+  departmentData: Department[];
+}
+
+const DepartmentList: React.FC<DepartmentListProps> = ({ departmentData }) => {
+  const [checked, setChecked] = useState<{ [key: string]: boolean }>({});
+
+ 
+  const handleDeptChange = (department: Department) => {
     const newChecked = { ...checked };
-    console.log("newChecked", newChecked);
     newChecked[department.department] = !checked[department.department];
 
     department.sub_departments.forEach((subDept) => {
@@ -19,14 +29,14 @@ const DepartmentList = ({ departmentData }) => {
     setChecked(newChecked);
   };
 
-  const handleSubDeptChange = (department, subDept) => {
+  const handleSubDeptChange = (department: Department, subDept: string) => {
     const key = `${department.department}-${subDept}`;
     const newChecked = { ...checked, [key]: !checked[key] };
     setChecked(newChecked);
   };
 
-  const renderSubDepartments = (department) => {
-    return department.sub_departments.map((subDept, subIndex) => (
+  const renderSubDepartments = (department: Department) => {
+    return department.sub_departments.map((subDept) => (
       <ListItem key={`${department.department}-${subDept}`}>
         <FormControlLabel
           control={
@@ -50,7 +60,8 @@ const DepartmentList = ({ departmentData }) => {
               <Checkbox
                 checked={checked[department.department] || false}
                 indeterminate={Object.keys(checked).some(
-                  (key) => key.startsWith(department.department) && checked[key] !== checked[department.department]
+                  (key) =>
+                    key.startsWith(department.department) && checked[key] !== checked[department.department]
                 )}
                 onChange={() => handleDeptChange(department)}
               />
