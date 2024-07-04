@@ -1,16 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+interface Post {
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
+}
 
 const Details: React.FC = () => {
-  const userDetails = JSON.parse(localStorage.getItem('UserDetails') || '{}');
+    const [data, setData] = useState<Post[]>([]);
+  
+    const fetchData  = async()=>{
+        try {
+            const response = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
+            setData(response.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
 
-  return (
-    <div>
-      <h1>Welcome to the second page</h1>
-      <p>Name: {userDetails.Name}</p>
-      <p>Phone: {userDetails.Phone}</p>
-      <p>Email: {userDetails.Email}</p>
-    </div>
-  );
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    console.log(data);
+
+    return (
+        <div>
+            {/* Render your data here */}
+            nie
+        </div>
+    );
 };
 
 export default Details;
