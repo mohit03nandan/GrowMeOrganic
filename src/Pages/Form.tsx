@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import InputBox from '../Components/InputBox';
 import ButtonBox from '../Components/ButtonBox';
 import { Box, Typography, Paper } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 const Form: React.FC = () => {
   const [Name, setName] = useState("");
   const [Phone, setPhone] = useState("");
   const [Email, setEmail] = useState("");
+  // const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const navigate = useNavigate();
+  // const location = useLocation();
 
   const handlesubmit =  () => {
     try {
@@ -24,6 +27,12 @@ const Form: React.FC = () => {
       localStorage.setItem("UserDetails",JSON.stringify({Name, Phone, Email}));
       navigate('/Details');
   };
+
+  // useEffect(() => {
+  //   if (location.state?.alertMessage) {
+  //     setAlertMessage(location.state.alertMessage);
+  //   }
+  // }, [location]);
 
   return (
     <Box
