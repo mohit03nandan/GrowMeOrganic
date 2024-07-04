@@ -4,24 +4,27 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
 const DepartmentList = ({ departmentData }) => {
-  // Initialize state for checked departments and sub-departments
   const [checked, setChecked] = useState({});
 
-  // Function to handle department checkbox change
+
   const handleDeptChange = (department) => {
     const newChecked = { ...checked };
+    console.log("newChecked", newChecked);
     newChecked[department.department] = !checked[department.department];
+
+    department.sub_departments.forEach((subDept) => {
+      newChecked[`${department.department}-${subDept}`] = newChecked[department.department];
+    });
+
     setChecked(newChecked);
   };
 
-  // Function to handle sub-department checkbox change
   const handleSubDeptChange = (department, subDept) => {
     const key = `${department.department}-${subDept}`;
     const newChecked = { ...checked, [key]: !checked[key] };
     setChecked(newChecked);
   };
 
-  // Function to render sub-departments list
   const renderSubDepartments = (department) => {
     return department.sub_departments.map((subDept, subIndex) => (
       <ListItem key={`${department.department}-${subDept}`}>

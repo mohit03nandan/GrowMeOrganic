@@ -9,9 +9,8 @@ const Form: React.FC = () => {
   const [Name, setName] = useState("");
   const [Phone, setPhone] = useState("");
   const [Email, setEmail] = useState("");
-  // const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const navigate = useNavigate();
-  // const location = useLocation();
+
 
   const handlesubmit =  () => {
     try {
@@ -28,11 +27,6 @@ const Form: React.FC = () => {
       navigate('/Details');
   };
 
-  // useEffect(() => {
-  //   if (location.state?.alertMessage) {
-  //     setAlertMessage(location.state.alertMessage);
-  //   }
-  // }, [location]);
 
   return (
     <Box

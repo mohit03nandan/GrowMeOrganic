@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import {fetchPosts} from "../api/api";
 
 interface Post {
     userId: number;
@@ -23,8 +24,8 @@ const GridPage: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
-                setData(response.data);
+                const posts = await fetchPosts();
+                setData(posts);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -42,7 +43,6 @@ const GridPage: React.FC = () => {
                 pageSize={5}
             />
         </Box>
-        
         </div>
     );
 };
